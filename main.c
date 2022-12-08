@@ -16,6 +16,15 @@
 
 #define BUF_SIZE 10
 
+ 
+void basic_logical_error(char *dst, char *src) {
+  // copy and paste error  
+  if(strlen(dst) == 0 && strlen(dst) == 0) 
+    return;
+  // size of "dst" is not considered here
+  strcpy(dst, src);
+}
+
 // Insecure use of strcpy
 void insecure_strcpy(char *dst, char *src) {
   // bad strlen comparison
