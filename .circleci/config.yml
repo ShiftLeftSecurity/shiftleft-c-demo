@@ -17,7 +17,7 @@ jobs:
       - run:
           name: ShiftLeft Build
           command: |
-            mvn clean package #build the app
+            gcc main.c #build the app
             mkdir -p /tmp/workspace/target #create a directory for Qwiet
             mv target/hello-shiftleft-0.0.1.jar /tmp/workspace/target/
             curl https://cdn.shiftleft.io/download/sl > /usr/local/bin/sl && chmod a+rx /usr/local/bin/sl #download Qwiet
