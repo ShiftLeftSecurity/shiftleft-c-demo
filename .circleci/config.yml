@@ -15,8 +15,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: ShiftLeft Build
+          command: |
+            mvn clean package #build the app
+            mkdir -p /tmp/workspace/target #create a directory for Qwiet
+            mv target/hello-shiftleft-0.0.1.jar /tmp/workspace/target/
+            curl https://cdn.shiftleft.io/download/sl > /usr/local/bin/sl && chmod a+rx /usr/local/bin/sl #download Qwiet
+            PR_USER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f4)
+            PR_REPO=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f5) 
+            PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7) 
+            sl analyze --wait --tag branch=$CIRCLE_BRANCH --app shiftleft-c-demo --container 18fgsa/s3-resource --c --cpg .
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
